@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فاتورة احترافية - ASKA AL MAGHERBI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .invoice-container {
+            width: 210mm;
+            min-height: 297mm;
+            background: linear-gradient(135deg, #fff9e6 0%, #ffebf1 100%);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            padding: 20mm;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff99cc;
+        }
+        
+        .company-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffcc00 0%, #ff99cc 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-icon i {
+            font-size: 36px;
+            color: white;
+        }
+        
+        .company-info h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .company-info p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 3px;
+        }
+        
+        .invoice-type-container {
+            text-align: left;
+        }
+        
+        .invoice-type {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #ffcc00;
+            color: #333;
+            font-weight: 700;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        
+        .invoice-number-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .invoice-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-right: 10px;
+        }
+        
+        .invoice-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .details-section {
+            width: 48%;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .details-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #ff99cc;
+            display: flex;
+            align-items: center;
+        }
+        
+        .details-title i {
+            margin-left: 8px;
+            color: #ff99cc;
+        }
+        
+        .details-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .details-label {
+            width: 40%;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .details-value {
+            width: 60%;
+            color: #333;
+        }
+        
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .invoice-table th {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 15px 10px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        
+        .invoice-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            font-size: 15px;
+        }
+        
+        .invoice-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .invoice-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .invoice-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .payment-terms {
+            width: 58%;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .terms-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #ff99cc;
+            display: flex;
+            align-items: center;
+        }
+        
+        .terms-title i {
+            margin-left: 8px;
+            color: #ff99cc;
+        }
+        
+        .terms-list {
+            list-style-type: none;
+        }
+        
+        .terms-list li {
+            margin-bottom: 8px;
+            padding-right: 20px;
+            position: relative;
+            font-size: 15px;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .terms-list li:before {
+            content: "•";
+            color: #ff99cc;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+        }
+        
+        .invoice-totals {
+            width: 38%;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .totals-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #ff99cc;
+            text-align: center;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        
+        .total-label {
+            color: #555;
+        }
+        
+        .total-value {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .grand-total-row {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #ff99cc;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .grand-total-row .total-value {
+            color: #333;
+        }
+        
+        .invoice-signature {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        
+        .signature-section {
+            width: 45%;
+            text-align: center;
+        }
+        
+        .signature-title {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .signature-line {
+            height: 2px;
+            background-color: #333;
+            margin: 30px auto 10px;
+            width: 200px;
+        }
+        
+        .stamp {
+            position: absolute;
+            bottom: 40mm;
+            left: 40mm;
+            width: 100px;
+            height: 100px;
+            border: 2px dashed #ff99cc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff99cc;
+            font-weight: 700;
+            transform: rotate(-15deg);
+            opacity: 0.8;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .barcode {
+            height: 50px;
+            background: repeating-linear-gradient(
+                90deg,
+                #000,
+                #000 2px,
+                #fff 2px,
+                #fff 4px
+            );
+            margin: 20px auto;
+            width: 200px;
+        }
+        
+        .invoice-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 120px;
+            color: rgba(255, 153, 204, 0.1);
+            font-weight: 700;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 8px 15px;
+            border-radius: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .payment-method i {
+            margin-left: 8px;
+            color: #ff99cc;
+        }
+        
+        .payment-method span {
+            font-size: 14px;
+            color: #555;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .invoice-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-watermark">ASKA AL MAGHERBI</div>
+        
+        <div class="invoice-header">
+            <div class="company-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-file-invoice"></i>
+                </div>
+                <div class="company-info">
+                    <h1>ASKA AL MAGHERBI</h1>
+                    <p>شركة MACTILE</p>
+                    <p>BCIC</p>
+                    <p>الرياض، المملكة العربية السعودية</p>
+                </div>
+            </div>
+            
+            <div class="invoice-type-container">
+                <div class="invoice-type">فاتورة آجل</div>
+                <div class="invoice-number-container">
+                    <div class="invoice-number">رقم الفاتورة: 2245137</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="invoice-details">
+            <div class="details-section">
+                <div class="details-title">
+                    <i class="fas fa-building"></i>
+                    معلومات الشركة
+                </div>
+                <div class="details-row">
+                    <div class="details-label">اسم الشركة:</div>
+                    <div class="details-value">شركة الأمل التجارية</div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">الرقم الضريبي:</div>
+                    <div class="details-value">312345678900003</div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">العنوان:</div>
+                    <div class="details-value">شارع الملك فهد، الرياض</div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">الهاتف:</div>
+                    <div class="details-value">+966 12 345 6789</div>
+                </div>
+            </div>
+            
+            <div class="details-section">
+                <div class="details-title">
+                    <i class="fas fa-file-alt"></i>
+                    معلومات الفاتورة
+                </div>
+                <div class="details-row">
+                    <div class="details-label">التاريخ:</div>
+                    <div class="details-value">13/08/2025</div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">تاريخ الاستحقاق:</div>
+                    <div class="details-value">12/09/2025</div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">رقم العميل:</div>
+                    <div class="details-value">CL-789456</div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">طريقة الدفع:</div>
+                    <div class="details-value">تحويل بنكي</div>
+                </div>
+            </div>
+        </div>
+        
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>م</th>
+                    <th>وصف المنتج</th>
+                    <th>الكمية</th>
+                    <th>الوحدة</th>
+                    <th>السعر</th>
+                    <th>الإجمالي</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>مواد بناء نوع A</td>
+                    <td>50</td>
+                    <td>قطعة</td>
+                    <td>120 ر.س</td>
+                    <td>6,000 ر.س</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>مواد بناء نوع B</td>
+                    <td>25</td>
+                    <td>قطعة</td>
+                    <td>85 ر.س</td>
+                    <td>2,125 ر.س</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>أسلاك كهربائية</td>
+                    <td>100</td>
+                    <td>متر</td>
+                    <td>15 ر.س</td>
+                    <td>1,500 ر.س</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>أقمشة صناعية</td>
+                    <td>30</td>
+                    <td>متر</td>
+                    <td>45 ر.س</td>
+                    <td>1,350 ر.س</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="invoice-footer">
+            <div class="payment-terms">
+                <div class="terms-title">
+                    <i class="fas fa-clipboard-list"></i>
+                    شروط الدفع
+                </div>
+                <ul class="terms-list">
+                    <li>الدفع مستحق خلال 30 يوم من تاريخ الفاتورة</li>
+                    <li>جميع الأسعار شاملة ضريبة القيمة المضافة 15%</li>
+                    <li>يتم الشحن خلال 3-5 أيام عمل من تأكيد الطلب</li>
+                    <li>أي إرجاع يجب أن يتم خلال 14 يوم من تاريخ الاستلام</li>
+                    <li>تخضع جميع المعاملات للشروط والأحكام المطبقة</li>
+                </ul>
+                
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <i class="fas fa-university"></i>
+                        <span>تحويل بنكي</span>
+                    </div>
+                    <div class="payment-method">
+                        <i class="fas fa-money-check-alt"></i>
+                        <span>شيك</span>
+                    </div>
+                    <div class="payment-method">
+                        <i class="fas fa-credit-card"></i>
+                        <span>بطاقة ائتمان</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="invoice-totals">
+                <div class="totals-title">الإجماليات</div>
+                <div class="total-row">
+                    <div class="total-label">المجموع:</div>
+                    <div class="total-value">10,975 ر.س</div>
+                </div>
+                <div class="total-row">
+                    <div class="total-label">الخصم (5%):</div>
+                    <div class="total-value">-548.75 ر.س</div>
+                </div>
+                <div class="total-row">
+                    <div class="total-label">المجموع بعد الخصم:</div>
+                    <div class="total-value">10,426.25 ر.س</div>
+                </div>
+                <div class="total-row">
+                    <div class="total-label">ضريبة القيمة المضافة (15%):</div>
+                    <div class="total-value">1,563.94 ر.س</div>
+                </div>
+                <div class="total-row grand-total-row">
+                    <div class="total-label">الإجمالي:</div>
+                    <div class="total-value">11,990.19 ر.س</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="barcode"></div>
+        
+        <div class="invoice-signature">
+            <div class="signature-section">
+                <div class="signature-title">توقيع المسؤول</div>
+                <div class="signature-line"></div>
+                <div>مدير المالية</div>
+            </div>
+            
+            <div class="signature-section">
+                <div class="signature-title">توقيع العميل</div>
+                <div class="signature-line"></div>
+                <div>تاريخ الاستلام: ___/___/______</div>
+            </div>
+        </div>
+        
+        <div class="stamp">ختم الشركة<br>معتمد</div>
+    </div>
+</body>
+</html>

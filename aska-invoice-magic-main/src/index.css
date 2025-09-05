@@ -1,0 +1,432 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ASKA Invoice Design System - Arabic RTL Support */
+
+@layer base {
+  :root {
+    /* Core Colors */
+    --background: 220 15% 97%;
+    --foreground: 210 20% 8%;
+
+    /* Glass Surface */
+    --glass-surface: 0 0% 100% / 0.1;
+    --glass-border: 0 0% 100% / 0.2;
+
+    /* Primary Gradient */
+    --primary: 258 90% 58%;
+    --primary-light: 258 90% 68%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary */
+    --secondary: 213 27% 84%;
+    --secondary-foreground: 210 20% 8%;
+
+    /* Invoice Types */
+    --invoice-cash: 142 76% 36%;
+    --invoice-quote: 213 94% 68%;
+    --invoice-credit: 32 95% 44%;
+
+    /* Status Colors */
+    --success: 142 76% 36%;
+    --info: 213 94% 68%;
+    --warning: 32 95% 44%;
+    --destructive: 0 84% 60%;
+
+    /* Surface */
+    --card: 0 0% 100%;
+    --card-foreground: 210 20% 8%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 210 20% 8%;
+
+    /* Interactive */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 258 90% 58%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --backdrop-blur: blur(4px);
+
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* RTL Support */
+  [dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* Glass Morphism Components */
+  .glass-card {
+    @apply backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl shadow-2xl;
+  }
+
+  .glass-sidebar {
+    @apply backdrop-blur-lg bg-white/5 border-l border-white/10;
+  }
+
+  /* Invoice Type Badges */
+  .badge-cash {
+    @apply bg-success/10 text-success border border-success/20 rounded-full px-3 py-1 text-sm font-medium;
+  }
+
+  .badge-quote {
+    @apply bg-info/10 text-info border border-info/20 rounded-full px-3 py-1 text-sm font-medium;
+  }
+
+  .badge-credit {
+    @apply bg-warning/10 text-warning border border-warning/20 rounded-full px-3 py-1 text-sm font-medium;
+  }
+
+  /* Interactive Elements */
+  .hover-lift {
+    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-xl;
+  }
+
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-glass {
+    background: var(--gradient-glass);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Noto Sans Arabic', system-ui, -apple-system, sans-serif;
+  }
+
+  html {
+    direction: rtl;
+  }
+
+  /* Print Styles - A4 Single Page Only */
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  @media print {
+    /* Hide all app UI elements */
+    header, nav, aside, .sidebar, .toolbar, .footer, .no-print, 
+    .thankyou, .extra-page, .print\:hidden {
+      display: none !important;
+    }
+    
+    body {
+      margin: 0 !important;
+      direction: rtl;
+      font-family: "Noto Naskh Arabic", "Noto Sans Arabic", Tahoma, Arial, sans-serif !important;
+      font-size: 12pt;
+      line-height: 1.4;
+      -webkit-print-color-adjust: exact !important;
+      color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      background: #fff !important;
+    }
+    
+    /* Scale down slightly to ensure single page */
+    .invoice-print-layout {
+      transform: scale(0.98) !important;
+      transform-origin: top right !important;
+      box-shadow: none !important;
+    }
+    
+    /* Prevent page breaks */
+    .invoice-print-layout, .invoice-header, .customer-section, 
+    .items-table, .totals-section, .notes-section, .invoice-footer,
+    table, tr, td, th, .totals-content {
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+    
+    /* Ensure colors show in print */
+    * {
+      -webkit-print-color-adjust: exact !important;
+      color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+
+  /* Invoice Print Layout - A4 Constrained */
+  .invoice-print-layout {
+    width: 190mm; /* A4 width (210mm) - margins (2*10mm) */
+    max-height: 277mm; /* A4 height (297mm) - margins (2*10mm) */
+    background: #fff;
+    margin: 0 auto;
+    padding: 8mm;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevents content overflow to second page */
+    font-family: "Noto Naskh Arabic", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+    direction: rtl;
+    text-align: right;
+    color: #333;
+  }
+
+  /* Invoice Header */
+  .invoice-header {
+    border: 1px solid #e6e1f3;
+    padding: 6mm;
+    border-radius: 4px;
+    margin-bottom: 4mm;
+    position: relative;
+  }
+
+  .company-name {
+    color: #6f3cc5; /* Purple matching the uploaded image */
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .company-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 10mm;
+    margin-top: 2mm;
+    font-size: 12px;
+  }
+
+  .company-info p {
+    color: #6f3cc5;
+    font-size: 12px;
+    margin: 2px 0;
+  }
+
+  .invoice-title-section {
+    text-align: left;
+    direction: ltr;
+  }
+
+  .invoice-title {
+    color: #4caf50; /* Green accent as in the image */
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .invoice-number, .invoice-date {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 3px;
+  }
+
+  /* Purple divider line */
+  .divider {
+    height: 2px;
+    background: #6f3cc5;
+    margin: 6mm 0 4mm;
+  }
+
+  /* Customer Section */
+  .customer-section {
+    margin-bottom: 4mm;
+    margin-left: auto;
+    width: 70mm;
+    border: 1px solid #e6e1f3;
+    padding: 4mm;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .section-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 6px;
+  }
+
+  .customer-details {
+    line-height: 1.4;
+  }
+
+  .customer-details p {
+    margin: 2px 0;
+  }
+
+  /* Items Table */
+  .items-section {
+    margin-bottom: 6mm;
+  }
+
+  .items-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .table-header {
+    background: #eee7ff; /* Light purple header matching image */
+  }
+
+  .table-header th {
+    color: #3d256e; /* Dark purple text */
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid #d8cefa;
+    padding: 4px 6px;
+  }
+
+  .table-row td {
+    border: 1px solid #e6e1f3;
+    padding: 6px;
+    vertical-align: top;
+  }
+
+  .table-row td.text-center {
+    text-align: center;
+  }
+
+  .table-row td.text-right {
+    text-align: right;
+  }
+
+  .empty-row td {
+    height: 20px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .item-description-en {
+    font-size: 10px;
+    color: #666;
+    margin-top: 1px;
+  }
+
+  .item-notes {
+    font-size: 10px;
+    color: #999;
+    margin-top: 2px;
+  }
+
+  /* Totals Section */
+  .totals-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6mm;
+    margin-bottom: 4mm;
+  }
+
+  .totals-content {
+    width: 70mm;
+    border: 1px solid #e6e1f3;
+    border-radius: 4px;
+    padding: 4mm;
+    font-size: 12px;
+    background: #fafafa;
+  }
+
+  .total-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2mm;
+  }
+
+  .discount-line {
+    color: #4caf50;
+  }
+
+  .tax-line {
+    color: #6f3cc5;
+  }
+
+  .final-total {
+    border-top: 2px solid #6f3cc5;
+    margin-top: 3mm;
+    padding-top: 3mm;
+    font-weight: 800;
+    color: #6f3cc5;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Notes Section */
+  .notes-section {
+    margin-top: 4mm;
+    padding: 3mm 0;
+    border-top: 1px solid #e6e1f3;
+    font-size: 12px;
+    page-break-inside: avoid;
+  }
+
+  /* No separate footer - integrated in notes */
+  .invoice-footer {
+    display: none;
+  }
+
+  /* Screen styles */
+  @media screen {
+    .invoice-print-layout {
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      margin: 20px auto;
+    }
+  }
+}
